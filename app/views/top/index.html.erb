@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="utf-8">
+<title>トップページ</title>
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<script>
+$(function($){
+        $('html').smoothscroll({easing : 'swing', speed : 1000, margintop : 30, headerfix : $('nav')});
+        $('.totop').scrollshow({position : 500});
+        $('.slide').slideshow({
+                touch        : false,
+                bgImage      : true,
+                autoSlide    : true,
+                effect       : 'fade',
+                repeat       : true,
+                easing       : 'swing',
+                interval     : 5000,
+                duration     : 1000,
+                imgHoverStop : false,
+                navHoverStop : false,
+                navImg       : false,
+                navImgCustom : false,
+                navImgSuffix : ''
+        });
+});
+</script>
+<!-- ココ消すと、なんか空白部分ができちゃうから残しとくー -->
+<!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<!-- ヘッダの写真(スライド可) -->
+<header>
+    <!--<h1><%= image_tag('top/logo.png') %></h1>-->
+        <div class="slide">
+                <ul class="slideInner">
+                        <li><%= image_tag('top/photo03.jpg') %></li>
+                </ul>
+        </div><!-- /.slide -->
+</header>
+
+<!-- 最上のナビバー -->
+<nav>
+        <ul>
+        <li><%= link_to 'HOME', root_path %></li>
+        <li><%= link_to 'PROFILE', root_path %></li>
+        <li><%= link_to 'GARALLY', root_path %></li>
+        <li><%= link_to 'BLOG', root_path %></li>
+        <li><%= link_to 'CONTACT', root_path %></li>
+    </ul>
+</nav>
+
+<!-- ページメイン部分 -->
+<div id="contents">
+        <h2>ノウハウ一覧</h2>
+
+        <div class="threeCol">
+        <div class="threeColInner" id="threeColInner" >
+                </div><!-- /.threeColInner -->
+        </div><!-- /.threeCol -->
+
+    <!-- サイドバー的なの作成予定 -->
+
+        <h2>お知らせ</h2>
+        <dl class="information">
+                <dt><span>2019-07-14</span></dt>
+                <dd>
+                <div>
+                        初版作成
+                </div>
+                </dd>
+                <dt><span>2019-07-15</span></dt>
+                <dd>
+                <div>
+                        DB連携完了
+                </div>
+                </dd>
+        </dl>
+</div><!-- /.contents -->
+
+<!-- 下部 コピーライト -->
+<footer>
+        <div><small>Copyright &#169; 20XX - 20XX SITENAME All Rights Reserved.</small></div><!-- /.copyright -->
+</footer>
+
+<!-- ページ上部へ戻るボタン -->
+<div class="totop"><a href="#"><%= image_tag('top/totop.png') %></a></div><!-- /.totop -->
+
+</body>
+<script>
+　<!-- 読み込み完了時に実行したい処理はココ。 -->
+  $(function() {
+        createArticles();<!-- Articlesテーブルから記事を生成します。-->
+  });
+
+  function createArticles(){
+        for (var i = 0; i < gon.articles.length; i++) {
+
+          <!-- html要素生成 -->
+          <!-- TODO:低 デフォのリンク先は取り合えずグーグルになってるけど、なんか作る？画像はこれでいいか。 -->
+          var article_dom ="<div class=\'photoText\' id =" + i + ">\
+            <a href=\"http://www.google.co.jp\">\
+            <img alt=\"image\" src=\"/assets/top/no_image.png\" />\
+            <h4></h4>\
+                </a>\
+                <p></p>\
+            </div>";
+          var articleQuery = $(article_dom);
+          var content = $("#threeColInner").append(articleQuery);<!-- contentは使わないけど、変数に入れないとダメみたい-->
+
+          <!-- DBデータ配置 -->
+          var article = gon.articles[i];
+          var a = $("#threeColInner").find("#" + i)
+          article.IMAGE_PATH == null ? "" : a.find("img").attr('src', '/assets/' + article.IMAGE_PATH);
+          article.LINK == null ? "" : a.find("a").attr('href', '/articles/vscode');<!-- リンク張替え -->
+          a.prepend("更新:" + article.updated_at.slice(0, 10) + " / " + article.AUTHER);
+      a.find("h4").append(article.TITLE);
+          a.find("p").append(article.SUMMERY);
+
+    }
+  }
+</script>
+</html>
+
