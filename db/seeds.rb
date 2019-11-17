@@ -56,3 +56,5 @@ Article.create(
   SUMMERY: 'Unityを用いた3Dゲーム制作について書きます。',
   LINK: 'unity.html',
   IMAGE_PATH: 'top/unity.jpg'
+)
+
