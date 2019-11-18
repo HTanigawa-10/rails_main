@@ -88,7 +88,7 @@ $(function($){
 
 <!-- 下部 コピーライト -->
 <footer>
-	<div><small>Copyright &#169; 20XX - 20XX SITENAME All Rights Reserved.</small></div><!-- /.copyright -->
+  <div><small>Copyright &#169; 20XX - 20XX SITENAME All Rights Reserved.</small></div><!-- /.copyright -->
 </footer>
 
 <!-- ページ上部へ戻るボタン -->
@@ -98,32 +98,31 @@ $(function($){
 <script>
 　<!-- 読み込み完了時に実行したい処理はココ。 -->
   $(function() {
-	createArticles();<!-- Articlesテーブルから記事を生成します。-->
+    createArticles();<!-- Articlesテーブルから記事を生成します。-->
   });
 
   function createArticles(){
-	for (var i = 0; i < gon.articles.length; i++) {
+    for (var i = 0; i < gon.articles.length; i++) {
 	  
-	  <!-- html要素生成 -->
-	  <!-- TODO:低 デフォのリンク先は取り合えずグーグルになってるけど、なんか作る？画像はこれでいいか。 -->
-	  var article_dom ="<div class=\'photoText\' id =" + i + ">\
-	    <a href=\"http://www.google.co.jp\">\
-	    <img alt=\"image\" src=\"/assets/top/no_image.png\" />\
-	    <h4></h4>\
-		</a>\
-		<p></p>\
-	    </div>";
-	  var articleQuery = $(article_dom);
-	  var content = $("#threeColInner").append(articleQuery);<!-- contentは使わないけど、変数に入れないとダメみたい-->
-
-	  <!-- DBデータ配置 -->
-	  var article = gon.articles[i];
-	  var a = $("#threeColInner").find("#" + i)
-	  article.IMAGE_PATH == null ? "" : a.find("img").attr('src', '/assets/' + article.IMAGE_PATH);
-	  article.LINK == null ? "" : a.find("a").attr('href', '/articles/vscode');<!-- リンク張替え -->
-	  a.prepend("更新:" + article.updated_at.slice(0, 10) + " / " + article.AUTHER);
+      <!-- html要素生成 -->
+      <!-- TODO:低 デフォのリンク先は取り合えずグーグルになってるけど、なんか作る？画像はこれでいいか。 -->
+      var article_dom ="<div class=\'photoText\' id =" + i + ">\
+        <a href=\"http://www.google.co.jp\">\
+        <img alt=\"image\" src=\"/assets/top/no_image.png\" />\
+        <h4></h4>\
+    	</a>\
+    	<p></p>\
+        </div>";
+      var articleQuery = $(article_dom);
+      var content = $("#threeColInner").append(articleQuery);<!-- contentは使わないけど、変数に入れないとダメみたい-->
+      <!-- DBデータ配置 -->
+      var article = gon.articles[i];
+      var a = $("#threeColInner").find("#" + i)
+      article.IMAGE_PATH == null ? "" : a.find("img").attr('src', '/assets/' + article.IMAGE_PATH);
+      article.LINK == null ? "" : a.find("a").attr('href', '/articles/vscode');<!-- リンク張替え -->
+      a.prepend("更新:" + article.updated_at.slice(0, 10) + " / " + article.AUTHER);
       a.find("h4").append(article.TITLE);
-	  a.find("p").append(article.SUMMERY);
+      a.find("p").append(article.SUMMERY);
 	  
     }
   }
